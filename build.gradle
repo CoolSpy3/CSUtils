@@ -67,7 +67,7 @@ publishing {
         gpr(MavenPublication) {
             groupId = 'com.coolspy3'
             artifactId = 'csutils'
-            version = '1.0.1'
+            version = '1.0.2'
 
             from components.java
         }

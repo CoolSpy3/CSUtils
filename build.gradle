@@ -37,7 +37,7 @@ configurations.compileClasspath.extendsFrom(configurations.libraries)
 
 dependencies {
     compileOnly 'com.coolspy3:csmodloader:1.0.1'
-    implementation 'com.coolspy3:cspackets:1.1.1'
+    implementation 'com.coolspy3:cspackets:1.0.0'
     testImplementation     'junit:junit:4.13'
 }
 
@@ -67,7 +67,7 @@ publishing {
         gpr(MavenPublication) {
             groupId = 'com.coolspy3'
             artifactId = 'csutils'
-            version = '1.0.0'
+            version = '1.0.1'
 
             from components.java
         }

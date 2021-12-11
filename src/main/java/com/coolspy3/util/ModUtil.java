@@ -17,7 +17,8 @@ public class ModUtil
 
     public static void sendMessage(String msg)
     {
-        PacketHandler.getLocal().sendPacket(new ServerChatSendPacket(msg, defaultChatPosition));
+        PacketHandler.getLocal().sendPacket(
+                new ServerChatSendPacket("{text:\"" + msg + "\"}", defaultChatPosition));
     }
 
 }

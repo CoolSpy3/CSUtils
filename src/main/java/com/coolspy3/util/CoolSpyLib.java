@@ -11,9 +11,9 @@ import com.coolspy3.cspackets.packets.ServerChatSendPacket;
 import com.google.gson.JsonParser;
 
 
-@Mod(id = "csutils", name = "CSUtils", version = "1.1.0",
+@Mod(id = "csutils", name = "CSUtils", version = "1.1.1",
         description = "Adds utility functions for use by other mods",
-        dependencies = {"csmodloader:[1.0.0,2)", "cspackets:[1.2,2)"})
+        dependencies = {"csmodloader:[1.3.1,2)", "cspackets:[1.2.1,2)"})
 public class CoolSpyLib implements Entrypoint
 {
 

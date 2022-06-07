@@ -8,10 +8,12 @@ import com.coolspy3.cspackets.datatypes.MCColor;
 import com.coolspy3.cspackets.packets.GameJoinPacket;
 import com.coolspy3.cspackets.packets.ServerChatSendPacket;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
-@Mod(id = "csutils", name = "CSUtils", version = "1.1.1",
+@Mod(id = "csutils", name = "CSUtils", version = "1.1.2",
         description = "Adds utility functions for use by other mods",
         dependencies = {"csmodloader:[1.3.1,2)", "cspackets:[1.2.1,2)"})
 public class CoolSpyLib implements Entrypoint
@@ -43,8 +45,18 @@ public class CoolSpyLib implements Entrypoint
     @SubscribeToPacketStream
     public void onChatReceived(ServerChatSendPacket packet)
     {
-        if (packet.position == 0x00) PacketHandler.getLocal()
-                .dispatch(new ClientChatReceiveEvent(MCColor.stripFormatting(JsonParser
-                        .parseString(packet.msg).getAsJsonObject().get("text").getAsString())));
+        if (packet.position == 0x00)
+            PacketHandler.getLocal().dispatch(new ClientChatReceiveEvent(MCColor.stripFormatting(
+                    recursivelyReadChat(JsonParser.parseString(packet.msg).getAsJsonObject()))));
+    }
+
+    public static final String recursivelyReadChat(JsonObject chat)
+    {
+        StringBuilder message = new StringBuilder(chat.get("text").getAsString());
+
+        if (chat.has("extra")) for (JsonElement component : chat.get("extra").getAsJsonArray())
+            message.append(recursivelyReadChat(component.getAsJsonObject()));
+
+        return message.toString();
     }
 }

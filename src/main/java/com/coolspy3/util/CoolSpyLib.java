@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
-@Mod(id = "csutils", name = "CSUtils", version = "1.1.2",
+@Mod(id = "csutils", name = "CSUtils", version = "1.1.3",
         description = "Adds utility functions for use by other mods",
         dependencies = {"csmodloader:[1.3.1,2)", "cspackets:[1.2.1,2)"})
 public class CoolSpyLib implements Entrypoint
@@ -55,7 +55,12 @@ public class CoolSpyLib implements Entrypoint
         StringBuilder message = new StringBuilder(chat.get("text").getAsString());
 
         if (chat.has("extra")) for (JsonElement component : chat.get("extra").getAsJsonArray())
-            message.append(recursivelyReadChat(component.getAsJsonObject()));
+        {
+            if (component.isJsonObject())
+                message.append(recursivelyReadChat(component.getAsJsonObject()));
+            else
+                message.append(component.toString());
+        }
 
         return message.toString();
     }
